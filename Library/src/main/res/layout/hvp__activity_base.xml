@@ -36,7 +36,7 @@
     <FrameLayout
         android:id="@+id/hvp__hero_frame"
         android:layout_width="match_parent"
-        android:layout_height="240dp">
+        android:layout_height="@dimen/hvp__hero_height">
 
         <FrameLayout
             android:id="@+id/hero_content"
@@ -71,5 +71,10 @@
         </TabHost>
 
     </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/hero_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/hvp__hero_height" />
 
 </FrameLayout>

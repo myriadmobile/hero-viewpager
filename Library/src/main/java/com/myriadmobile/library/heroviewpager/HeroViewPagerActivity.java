@@ -52,6 +52,7 @@ public abstract class HeroViewPagerActivity extends FragmentActivity implements 
     private HorizontalScrollView mTabScrollView;
 
     private int actionBarHeight = 0;
+    private FrameLayout mHeroOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public abstract class HeroViewPagerActivity extends FragmentActivity implements 
         }
 
         mHeroContent = (FrameLayout) findViewById(R.id.hero_content);
+        mHeroOverlay = (FrameLayout) findViewById(R.id.hero_overlay);
         mHeroContainer = (FrameLayout) findViewById(R.id.hvp__hero_frame);
 
         mPager = (ViewPager) findViewById(R.id.hvp__pager);
@@ -137,8 +139,12 @@ public abstract class HeroViewPagerActivity extends FragmentActivity implements 
      *
      * @return A safe place to add custom views to the Hero header
      */
-    public FrameLayout getHeroContent() {
+    public FrameLayout getHeroContentContainer() {
         return mHeroContent;
+    }
+
+    public FrameLayout getHeroOverlayContainer() {
+        return mHeroOverlay;
     }
 
     /**

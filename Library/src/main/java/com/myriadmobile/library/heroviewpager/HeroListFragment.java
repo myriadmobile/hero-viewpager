@@ -27,7 +27,6 @@ package com.myriadmobile.library.heroviewpager;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.SparseIntArray;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,17 +40,17 @@ import android.widget.ListView;
 public class HeroListFragment extends AbstractHeroFragment {
 
     private ListView list;
-    private int dp240;
+    private int mHeroHeight;
 
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View re = inflater.inflate(R.layout.hvp__fragment_list, container, false);
-        dp240 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 240, getResources().getDisplayMetrics());
+        mHeroHeight = getResources().getDimensionPixelSize(R.dimen.hvp__hero_height);
 
         list = (ListView) re.findViewById(android.R.id.list);
 
         View header = new View(re.getContext());
-        header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp240));
+        header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mHeroHeight));
         list.addHeaderView(header, null, false);
 
 
@@ -79,7 +78,7 @@ public class HeroListFragment extends AbstractHeroFragment {
         list.postDelayed(new Runnable() {
             @Override
             public void run() {
-                list.smoothScrollToPositionFromTop(1, dp240-scroll, 1);
+                list.smoothScrollToPositionFromTop(1, mHeroHeight - scroll, 1);
             }
         }, 10);
     }

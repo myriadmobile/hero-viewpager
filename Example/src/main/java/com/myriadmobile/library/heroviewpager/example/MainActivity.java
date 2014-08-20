@@ -24,16 +24,18 @@
 
 package com.myriadmobile.library.heroviewpager.example;
 
-import android.graphics.Color;
+import android.animation.FloatEvaluator;
+import android.app.ActionBar;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.myriadmobile.library.heroviewpager.HeroPagerAdapter;
 import com.myriadmobile.library.heroviewpager.HeroViewPagerActivity;
@@ -41,9 +43,19 @@ import com.myriadmobile.library.heroviewpager.HeroViewPagerActivity;
 
 public class MainActivity extends HeroViewPagerActivity {
 
+    private ImageView movingImage;
+    private ImageView upImage;
+    private int dp8;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setIcon(new EmptyDrawable(this, 48, 48));
+
+        upImage = (ImageView) getWindow().getDecorView().findViewById(android.R.id.home);
+        assert upImage != null;
 
         HeroPagerAdapter adapter = new HeroPagerAdapter(this);
         adapter.add("Test 1", DummyFragment.class, null);
@@ -56,15 +68,42 @@ public class MainActivity extends HeroViewPagerActivity {
         adapter.add("Test 8", DummyFragment.class, null);
         setAdapter(adapter);
 
+        dp8 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
+
+        movingImage = new ImageView(this);
+        movingImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        movingImage.setAdjustViewBounds(true);
+        movingImage.setPivotX(0);
+        movingImage.setPivotY(0);
+        movingImage.setImageResource(R.drawable.ic_launcher);
+        int dp92 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 92, getResources().getDisplayMetrics());
+        LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp92);
+        params.gravity = Gravity.CENTER;
+        getHeroOverlayContainer().addView(movingImage, params);
+
+        FrameLayout heroContent = getHeroContentContainer();
+
         ImageView image = new ImageView(this);
         image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         image.setImageResource(R.drawable.carnarvon_castle);
-        getHeroContent().addView(image, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        heroContent.addView(image, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
     }
+
+    FloatEvaluator evaluator = new FloatEvaluator();
 
     @Override
     public void onHeroScrollUpdated(int scroll, int max) {
-        getHeroContent().setTranslationY(scroll * 0.5f);
+        getHeroContentContainer().setTranslationY(scroll * 0.5f);
+
+        float scale = scroll / (float) max;
+
+        float scaleFactor = evaluator.evaluate(scale, 1, 32f / 92f);
+
+        movingImage.setScaleX(scaleFactor);
+        movingImage.setScaleY(scaleFactor);
+
+        movingImage.setTranslationX(evaluator.evaluate(scale, 0, upImage.getLeft() - movingImage.getLeft() ));
+        movingImage.setTranslationY(evaluator.evaluate(scale, 0, upImage.getTop() - movingImage.getTop()));
     }
 
     @Override
