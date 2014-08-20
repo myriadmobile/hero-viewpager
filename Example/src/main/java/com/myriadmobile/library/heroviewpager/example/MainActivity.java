@@ -58,17 +58,8 @@ public class MainActivity extends HeroViewPagerActivity {
 
         ImageView image = new ImageView(this);
         image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        image.setImageResource(R.drawable.castle);
+        image.setImageResource(R.drawable.carnarvon_castle);
         getHeroContent().addView(image, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-
-        TextView imageCredit = new TextView(this);
-        imageCredit.setTextColor(Color.WHITE);
-        imageCredit.setText("WyrdLight.com");
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        int dp8 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
-        params.setMargins(dp8, dp8, dp8, dp8);
-        params.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
-        getHeroContent().addView(imageCredit, params);
     }
 
     @Override
