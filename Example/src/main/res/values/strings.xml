@@ -3,5 +3,7 @@
 
     <string name="app_name">HeroViewPager Example</string>
     <string name="action_settings">Settings</string>
+    <string name="title_basic_example">Basic Hero Example</string>
+    <string name="title_burns_example">Burns Hero Example</string>
 
 </resources>

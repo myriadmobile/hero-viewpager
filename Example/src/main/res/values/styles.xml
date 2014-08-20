@@ -1,7 +1,11 @@
 <resources>
 
-    <!-- Base application theme needs to implement Theme.HeroViewPager or sub-styles -->
-    <style name="AppTheme" parent="Theme.HeroViewPager.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.Myriad">
+
+    </style>
+
+    <!-- Base activity theme needs to implement Theme.HeroViewPager or sub-styles -->
+    <style name="AppTheme.Hero" parent="Theme.HeroViewPager.Light.DarkActionBar">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_myriad</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Myriad</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Myriad</item>
