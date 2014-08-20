@@ -67,14 +67,16 @@ public class BurnsHeroActivity extends HeroViewPagerActivity {
 
         //int dp8 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
 
-        movingImage = new ImageView(this);
-        movingImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        movingImage.setPivotX(0);
-        movingImage.setPivotY(0);
-        //int dp92 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 92, getResources().getDisplayMetrics());
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER;
-        getHeroOverlayContainer().addView(movingImage, params);
+        FrameLayout overlay = getHeroOverlayContainer();
+        if(overlay != null) {
+            movingImage = new ImageView(this);
+            movingImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            movingImage.setPivotX(0);
+            movingImage.setPivotY(0);
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.gravity = Gravity.CENTER;
+            overlay.addView(movingImage, params);
+        }
 
         FrameLayout heroContent = getHeroContentContainer();
 
@@ -88,7 +90,12 @@ public class BurnsHeroActivity extends HeroViewPagerActivity {
     }
 
     public void setMovingIconDrawable(Drawable drawable) {
-        movingImage.setImageDrawable(drawable);
+        if(movingImage == null) {
+            getActionBar().setIcon(drawable);
+        }
+        else {
+            movingImage.setImageDrawable(drawable);
+        }
     }
 
     @Override
@@ -107,15 +114,17 @@ public class BurnsHeroActivity extends HeroViewPagerActivity {
         scale = interpolator.getInterpolation(scale);
 
         float ratio = 1;
-        if(movingImage.getHeight() != 0) {
+        if(movingImage != null && movingImage.getHeight() != 0) {
             ratio = upImage.getHeight() / (float) movingImage.getHeight();
         }
         float scaleFactor = evaluator.evaluate(scale, 1, ratio);
 
-        movingImage.setScaleX(scaleFactor);
-        movingImage.setScaleY(scaleFactor);
+        if(movingImage != null) {
+            movingImage.setScaleX(scaleFactor);
+            movingImage.setScaleY(scaleFactor);
 
-        movingImage.setTranslationX(evaluator.evaluate(scale, 0, upImage.getLeft() - movingImage.getLeft() ));
-        movingImage.setTranslationY(evaluator.evaluate(scale, 0, upImage.getTop() - movingImage.getTop()));
+            movingImage.setTranslationX(evaluator.evaluate(scale, 0, upImage.getLeft() - movingImage.getLeft()));
+            movingImage.setTranslationY(evaluator.evaluate(scale, 0, upImage.getTop() - movingImage.getTop()));
+        }
     }
 }

@@ -53,6 +53,7 @@ public abstract class HeroViewPagerActivity extends FragmentActivity implements 
 
     private int actionBarHeight = 0;
     private FrameLayout mHeroOverlay;
+    private boolean isPortrait = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,9 @@ public abstract class HeroViewPagerActivity extends FragmentActivity implements 
         mTabHost.setOnTabChangedListener(this);
 
         mTabScrollView = (HorizontalScrollView) findViewById(R.id.hvp__tab_scroll_view);
+
+        //TODO better logic than this?
+        isPortrait = mHeroOverlay != null;
     }
 
     /**
@@ -101,38 +105,42 @@ public abstract class HeroViewPagerActivity extends FragmentActivity implements 
      * @param scroll The offset that the fragment's content are offset by
      */
     void reportScroll(AbstractHeroFragment caller, int scroll) {
-
-        //We only care about the _currently_ shown fragment. Later in the method, we may
-        // cause other fragments to report scrolling
-        Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(FragmentPagerAdapter.makeFragmentName(R.id.hvp__pager, mPager.getCurrentItem()));
-        if(caller != currentFragment) {
-            return;
-        }
-
-        //Change the position of the Hero header
-        int height = mHeroContainer.getHeight() - actionBarHeight - mTabHost.getHeight();
-        int clampedScroll = Math.max(0, Math.min(height, scroll));
-        mHeroContainer.setTranslationY(-clampedScroll);
-
-        //Report the scroll position to the PageAdapter so that it can
-        // appropriately instantiate other fragments at this scroll position
-        if(mPagerAdapter != null) {
-            mPagerAdapter.setCurrentScrollPosition(clampedScroll);
-        }
-
-        //Scroll other fragments already added to also scroll to the new position
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        for(Fragment fragment : fragments) {
-            if(fragment != null && fragment != caller && fragment.isAdded() && fragment instanceof AbstractHeroFragment) {
-                AbstractHeroFragment heroFragment = (AbstractHeroFragment) fragment;
-                //Here is where we can cause recursion!
-                //The HeroListView implementation will report scrolling
-                heroFragment.scrollTo(clampedScroll);
+        if(isPortrait) {
+            //We only care about the _currently_ shown fragment. Later in the method, we may
+            // cause other fragments to report scrolling
+            Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(FragmentPagerAdapter.makeFragmentName(R.id.hvp__pager, mPager.getCurrentItem()));
+            if (caller != currentFragment) {
+                return;
             }
-        }
 
-        //Tell implementers that the scroll position changed
-        onHeroScrollUpdated(clampedScroll, height);
+            //Change the position of the Hero header
+            int height = mHeroContainer.getHeight() - actionBarHeight - mTabHost.getHeight();
+            int clampedScroll = Math.max(0, Math.min(height, scroll));
+            mHeroContainer.setTranslationY(-clampedScroll);
+
+            //Report the scroll position to the PageAdapter so that it can
+            // appropriately instantiate other fragments at this scroll position
+            if (mPagerAdapter != null) {
+                mPagerAdapter.setCurrentScrollPosition(clampedScroll);
+            }
+
+            //Scroll other fragments already added to also scroll to the new position
+            List<Fragment> fragments = getSupportFragmentManager().getFragments();
+            for (Fragment fragment : fragments) {
+                if (fragment != null && fragment != caller && fragment.isAdded() && fragment instanceof AbstractHeroFragment) {
+                    AbstractHeroFragment heroFragment = (AbstractHeroFragment) fragment;
+                    //Here is where we can cause recursion!
+                    //The HeroListView implementation will report scrolling
+                    heroFragment.scrollTo(clampedScroll);
+                }
+            }
+
+            //Tell implementers that the scroll position changed
+            onHeroScrollUpdated(clampedScroll, height);
+        }
+        else {
+            //TODO Should do nothing?
+        }
     }
 
     /**
@@ -143,12 +151,18 @@ public abstract class HeroViewPagerActivity extends FragmentActivity implements 
         return mHeroContent;
     }
 
+    /**
+     *
+     * @return null if in landscape, otherwise a FrameLayout the height of the hero header
+     */
     public FrameLayout getHeroOverlayContainer() {
         return mHeroOverlay;
     }
 
     /**
-     * Called when a fragment scrolls, and MAY change the position of the Hero header view
+     * <p>Called when a fragment scrolls, and change the position of the Hero header view.</p>
+     * <p>This may never get called, or could be called multiple times with the same scroll value.</p>
+     *
      * @param scroll The amount that the header has been offset by
      * @param max The max distance the header will be offset by
      */
