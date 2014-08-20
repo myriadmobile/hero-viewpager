@@ -35,7 +35,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
- *
+ * Convenient implementation of {@link AbstractHeroFragment} for a ListView
  */
 public class HeroListFragment extends AbstractHeroFragment {
 

@@ -32,7 +32,8 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 /**
- *
+ * <p>Base Fragment used in {@link HeroViewPagerActivity}</p>
+ * <p>If you're implementing a ListView fragment, use {@link HeroListFragment}</p>
  */
 abstract class AbstractHeroFragment extends Fragment {
 

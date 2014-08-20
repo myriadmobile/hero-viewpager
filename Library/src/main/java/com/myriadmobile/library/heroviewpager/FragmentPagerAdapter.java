@@ -21,6 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+/*
+ * Copyright (C) 2011 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.myriadmobile.library.heroviewpager;
 
@@ -29,13 +44,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * <p>Custom implementation of {@link PagerAdapter} mostly borrowed from {@link android.support.v4.app.FragmentPagerAdapter}</p>
+ * <p>
+ *     This only adds and removes fragments. It doesn't detach and re-attach them.
+ *     This is done so that new argument Bundles can be set each time the fragment is added.
+ * </p>
+ */
 public abstract class FragmentPagerAdapter extends PagerAdapter {
-    private static final String TAG = "FragmentPagerAdapter";
-    private static final boolean DEBUG = false;
 
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
@@ -63,9 +82,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         final long itemId = getItemId(position);
 
         Fragment fragment = getItem(position);
-        if (DEBUG) {
-            Log.v(TAG, "Adding item #" + itemId + ": f=" + fragment);
-        }
+
         mCurTransaction.add(container.getId(), fragment, makeFragmentName(container.getId(), itemId));
 
         if (fragment != mCurrentPrimaryItem) {
@@ -82,9 +99,6 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
         Fragment fragment = (Fragment) object;
-        if (DEBUG) {
-            Log.v(TAG, "Removing item #" + getItemId(position) + ": f=" + object + " v=" + fragment.getView());
-        }
         mCurTransaction.remove(fragment);
     }
 

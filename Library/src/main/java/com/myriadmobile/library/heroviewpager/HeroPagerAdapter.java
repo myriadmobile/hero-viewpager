@@ -30,7 +30,8 @@ import android.support.v4.app.Fragment;
 import java.util.ArrayList;
 
 /**
- *
+ * Specific implementation of {@link FragmentPagerAdapter} that will pass the current scroll
+ * position to each {@link AbstractHeroFragment} when it is added.
  */
 public class HeroPagerAdapter extends FragmentPagerAdapter {
 
