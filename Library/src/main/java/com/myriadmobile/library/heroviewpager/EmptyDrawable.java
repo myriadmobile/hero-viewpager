@@ -1,4 +1,4 @@
-package com.myriadmobile.library.heroviewpager.example;
+package com.myriadmobile.library.heroviewpager;
 
 import android.content.Context;
 import android.graphics.Canvas;

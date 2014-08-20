@@ -75,9 +75,15 @@ public class HeroListFragment extends AbstractHeroFragment {
 
     @Override
     public final void scrollTo(final int scroll) {
+        if(list == null) {
+            return;
+        }
         list.postDelayed(new Runnable() {
             @Override
             public void run() {
+                if(list == null) {
+                    return;
+                }
                 list.smoothScrollToPositionFromTop(1, mHeroHeight - scroll, 1);
             }
         }, 10);
