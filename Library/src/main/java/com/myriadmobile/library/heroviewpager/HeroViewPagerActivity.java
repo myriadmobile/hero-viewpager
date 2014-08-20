@@ -45,9 +45,9 @@ import java.util.List;
  * </p>
  * <p>
  *     Default tabs are themed using ActionBar tab styles defined by
- *     {@link android.R.attr.actionBarTabStyle}
+ *     {@link android.R.attr#actionBarTabStyle}
  *     and
- *     {@link android.R.attr.actionBarTabTextStyle}
+ *     {@link android.R.attr#actionBarTabTextStyle}
  * </p>
  */
 public abstract class HeroViewPagerActivity extends FragmentActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
