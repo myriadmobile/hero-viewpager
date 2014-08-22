@@ -24,6 +24,8 @@
 
 package com.myriadmobile.library.heroviewpager.example;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -71,7 +73,11 @@ public class BurnsHeroExampleActivity extends BurnsHeroActivity {
             finish();
             return true;
         }
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_view_github) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MainActivity.GITHUB_URL));
+            if(intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
