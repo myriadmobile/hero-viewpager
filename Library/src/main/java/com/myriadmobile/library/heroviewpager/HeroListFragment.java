@@ -27,10 +27,12 @@ package com.myriadmobile.library.heroviewpager;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.SparseIntArray;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -40,6 +42,7 @@ import android.widget.ListView;
 public class HeroListFragment extends AbstractHeroFragment {
 
     private ListView list;
+    private FrameLayout empty;
     private int mHeroHeight;
 
     @Override
@@ -48,6 +51,7 @@ public class HeroListFragment extends AbstractHeroFragment {
         mHeroHeight = getResources().getDimensionPixelSize(R.dimen.hvp__hero_height);
 
         list = (ListView) re.findViewById(android.R.id.list);
+        empty = (FrameLayout) re.findViewById(android.R.id.empty);
 
         View header = new View(re.getContext());
         header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mHeroHeight));
@@ -71,6 +75,26 @@ public class HeroListFragment extends AbstractHeroFragment {
         list.setAdapter(adapter);
         listViewItemHeights.clear();
         list.getAdapter().registerDataSetObserver(mDataSetObserver);
+    }
+
+    public void setListShown(boolean show) {
+        if(empty != null) {
+            empty.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
+
+    public void setListHiddenView(View view) {
+        setListHiddenView(view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    }
+
+    public void setListHiddenView(View view, FrameLayout.LayoutParams params) {
+        if(empty == null) {
+            return;
+        }
+
+        empty.removeAllViews();
+        params.gravity |= Gravity.CENTER;
+        empty.addView(view, params);
     }
 
     @Override

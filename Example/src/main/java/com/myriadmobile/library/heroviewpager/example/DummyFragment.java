@@ -25,6 +25,7 @@
 
 package com.myriadmobile.library.heroviewpager.example;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -33,6 +34,9 @@ import android.widget.ArrayAdapter;
 import com.myriadmobile.library.heroviewpager.HeroListFragment;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  *
@@ -47,11 +51,38 @@ public class DummyFragment extends HeroListFragment {
         }
     }
 
+    private Executor executor = Executors.newFixedThreadPool(4);
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, ITEMS));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setListShown(false);
+        new AsyncTask<Void, Void, List<String>>() {
+            @Override
+            protected List<String> doInBackground(Void... voids) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return ITEMS;
+            }
+
+            @Override
+            protected void onPostExecute(List<String> strings) {
+                if(!isAdded()) {
+                    return;
+                }
+
+                setListShown(true);
+                setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, strings));
+            }
+        }.executeOnExecutor(executor);
+    }
 }
