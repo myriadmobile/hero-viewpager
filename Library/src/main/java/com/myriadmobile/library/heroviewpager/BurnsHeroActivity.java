@@ -67,22 +67,19 @@ public class BurnsHeroActivity extends HeroViewPagerActivity {
 
         //int dp8 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
 
-        FrameLayout overlay = getHeroOverlayContainer();
-        if(overlay != null) {
+        if(hasHeroOverlay()) {
             movingImage = new ImageView(this);
             movingImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
             movingImage.setPivotX(0);
             movingImage.setPivotY(0);
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.gravity = Gravity.CENTER;
-            overlay.addView(movingImage, params);
+            setOverlayView(movingImage, params);
         }
-
-        FrameLayout heroContent = getHeroContentContainer();
 
         backgroundImage = new ImageView(this);
         backgroundImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        heroContent.addView(backgroundImage, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        setContentView(backgroundImage);
     }
 
     public void setHeroBackgroundDrawable(Drawable drawable) {
@@ -100,7 +97,7 @@ public class BurnsHeroActivity extends HeroViewPagerActivity {
 
     @Override
     public void onHeroScrollUpdated(int scroll, int max) {
-        getHeroContentContainer().setTranslationY(scroll * 0.5f);
+        backgroundImage.setTranslationY(scroll * 0.5f);
 
         float scale = scroll / (float) max;
 

@@ -32,6 +32,7 @@ import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.TabHost;
@@ -66,7 +67,7 @@ public abstract class HeroViewPagerActivity extends FragmentActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.hvp__activity_base);
+        super.setContentView(R.layout.hvp__activity_base);
 
         // Calculate ActionBar height
         TypedValue typedValue = new TypedValue();
@@ -152,19 +153,98 @@ public abstract class HeroViewPagerActivity extends FragmentActivity implements 
     }
 
     /**
+     * Convenience for
+     * {@link #setContentView(View, android.view.ViewGroup.LayoutParams)}
+     * to set the content from a layout resource. Content will be added to a
+     * container in the Hero header that sits behind the ActionBar and Tabs.
      *
-     * @return A safe place to add custom views to the Hero header
+     * @param layoutResID Resource ID to be inflated.
+     * @see #setContentView(View, android.view.ViewGroup.LayoutParams)
      */
-    public FrameLayout getHeroContentContainer() {
-        return mHeroContent;
+    @Override
+    public void setContentView(int layoutResID) {
+        setContentView(getLayoutInflater().inflate(layoutResID, mHeroContent, false));
     }
 
     /**
+     * Convenience for
+     * {@link #setContentView(View, android.view.ViewGroup.LayoutParams)}
+     * to set the content from an explicit view. Content will be added to a
+     * container in the Hero header that sits behind the ActionBar and Tabs.
      *
-     * @return null if in landscape, otherwise a FrameLayout the height of the hero header
+     * @param view The desired content to display.
+     * @see #setContentView(View, android.view.ViewGroup.LayoutParams)
      */
-    public FrameLayout getHeroOverlayContainer() {
-        return mHeroOverlay;
+    @Override
+    public void setContentView(View view) {
+        setContentView(view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+    }
+
+    /**
+     * Set the content from an explicit view. Content will be added to a
+     * container in the Hero header that sits behind the ActionBar and Tabs.
+     *
+     * @param view The desired content to display.
+     * @param params Layout parameters for the view.
+     */
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        mHeroContent.removeAllViews();
+        mHeroContent.addView(view, params);
+    }
+
+
+    /**
+     * Convenience for
+     * {@link #setOverlayView(View, android.view.ViewGroup.LayoutParams)}
+     * Set the overlay content to an explicit view.  This view is placed into
+     * a container the same height as the Hero header.
+     *
+     * @param layoutResID Resource ID to be inflated.
+     * @return true if there was a overlay container to add to, false if not added
+     * @see #setOverlayView(android.view.View, android.view.ViewGroup.LayoutParams)
+     */
+    public boolean setOverlayView(int layoutResID) {
+        return mHeroOverlay != null &&
+                setOverlayView(getLayoutInflater().inflate(layoutResID, mHeroOverlay, false));
+    }
+    /**
+     * Convenience for
+     * {@link #setOverlayView(View, android.view.ViewGroup.LayoutParams)}
+     * Set the overlay content to an explicit view.  This view is placed into
+     * a container the same height as the Hero header.
+     *
+     * @param view The desired content to display.
+     * @return true if there was a overlay container to add to, false if not added
+     * @see #setOverlayView(View, android.view.ViewGroup.LayoutParams)
+     */
+    public boolean setOverlayView(View view) {
+        return setOverlayView(view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+    }
+
+    /**
+     * Set the overlay content to an explicit view.  This view is placed into
+     * a container the same height as the Hero header.
+     *
+     * @param view The desired content to display.
+     * @param params Layout parameters for the view.
+     * @return true if there was a overlay container to add to, false if not added
+     */
+    public boolean setOverlayView(View view, ViewGroup.LayoutParams params) {
+        if(mHeroOverlay == null) {
+            return false;
+        }
+        mHeroOverlay.removeAllViews();
+        mHeroOverlay.addView(view, params);
+        return true;
+    }
+
+    /**
+     * Current Implementation: hero overlay are only available in portrait.
+     * @return if the Activity has a container for overlay content
+     */
+    public boolean hasHeroOverlay() {
+        return mHeroOverlay != null;
     }
 
     /**

@@ -25,11 +25,11 @@
 package com.myriadmobile.library.heroviewpager.example;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.myriadmobile.library.heroviewpager.HeroPagerAdapter;
 import com.myriadmobile.library.heroviewpager.HeroViewPagerActivity;
@@ -43,6 +43,11 @@ public class BasicHeroExampleActivity extends HeroViewPagerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(R.drawable.carnarvon_castle);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        setContentView(imageView);
+
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         HeroPagerAdapter adapter = new HeroPagerAdapter(this);
@@ -55,8 +60,6 @@ public class BasicHeroExampleActivity extends HeroViewPagerActivity {
         adapter.add("Test 7", DummyFragment.class, null);
         adapter.add("Test 8", DummyFragment.class, null);
         setAdapter(adapter);
-
-        getHeroContentContainer().setBackgroundColor(Color.parseColor("#198A92"));
     }
 
     @Override
