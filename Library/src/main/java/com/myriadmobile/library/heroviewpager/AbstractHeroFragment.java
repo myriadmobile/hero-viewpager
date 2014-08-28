@@ -56,9 +56,11 @@ abstract class AbstractHeroFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Bundle args = getArguments();
-        int scrollTo = args.getInt(ARG_START_SCROLL_POSITION, 0);
-        scrollTo(scrollTo);
+        scrollTo(getInitialScroll());
+    }
+
+    protected int getInitialScroll() {
+        return getArguments().getInt(ARG_START_SCROLL_POSITION, 0);
     }
 
     public HeroViewPagerActivity getHeroActivity() {

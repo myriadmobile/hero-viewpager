@@ -81,6 +81,9 @@ public class HeroListFragment extends AbstractHeroFragment {
         if(empty != null) {
             empty.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+        if(show) {
+            scrollTo(getInitialScroll());
+        }
     }
 
     public void setListHiddenView(View view) {
@@ -144,15 +147,32 @@ public class HeroListFragment extends AbstractHeroFragment {
 
     private final AbsListView.OnScrollListener mScrollListener = new AbsListView.OnScrollListener() {
 
+        private volatile boolean isUserScrolling = false;
+        private volatile boolean hasUserBeenScrolling = false;
+
         @Override
         public void onScrollStateChanged(AbsListView absListView, int i) {
-
+            if(i == SCROLL_STATE_TOUCH_SCROLL) {
+                hasUserBeenScrolling = true;
+                isUserScrolling = true;
+            }
+            if(i == SCROLL_STATE_FLING) {
+                if(hasUserBeenScrolling) {
+                    isUserScrolling = true;
+                }
+            }
+            if(i == SCROLL_STATE_IDLE) {
+                hasUserBeenScrolling = false;
+                isUserScrolling = false;
+            }
         }
 
         @Override
         public void onScroll(AbsListView absListView, int i, int i2, int i3) {
             int scroll = getScroll();
-            reportScroll(scroll);
+            if(isUserScrolling) {
+                reportScroll(scroll);
+            }
         }
     };
 }
