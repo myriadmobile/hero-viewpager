@@ -3,6 +3,15 @@ Hero ViewPager
 
 An extensible library for parallax scrolling effects with a ViewPager
 
+Maven
+-----
+
+Use this for Gradle, substituting the most current version:
+
+```
+    compile 'com.myriadmobile.library:hero-viewpager:X.X.X@aar'
+```
+
 Usage
 -----
 
