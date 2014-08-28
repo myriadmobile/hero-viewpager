@@ -1,6 +1,8 @@
 Hero ViewPager
 ==============
 
+An extensible library for parallax scrolling effects with a ViewPager
+
 Usage
 -----
 

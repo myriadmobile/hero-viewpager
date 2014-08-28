@@ -1,0 +1,138 @@
+
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014 Myriad Mobile
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+//
+// Below code was adapted from
+// https://github.com/DeployGate/deploygate-android-sdk
+//
+
+apply plugin: 'signing'
+apply plugin: 'maven'
+
+def isReleaseBuild() {
+    return project.version.contains("SNAPSHOT") == false
+}
+
+boolean validProperty(propertyName) {
+    try { project.property(propertyName) != null }
+    catch (ignored) { false }
+}
+assert validProperty('signing.keyId'),             'properties for signing must be provided'
+assert validProperty('signing.secretKeyRingFile'), 'properties for signing must be provided'
+assert validProperty('sonatypeUsername'),          'properties for publish must be provided'
+assert validProperty('sonatypeFullname'),          'properties for publish must be provided'
+
+/*
+//We're grabbing the passwords from gradle.properties instead
+String askPassword(prompt) {
+    "${System.console().readPassword(prompt)}"
+}
+ext.'signing.password' = askPassword("Enter password for PGP key ${property('signing.keyId')}: ")
+ext.'sonatypePassword' = askPassword("Enter password for ${sonatypeUsername}@oss.sonatype.org: ")
+*/
+
+signing {
+    sign configurations.archives
+}
+
+//Defines JavaDocs JavaDocs
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java
+}
+
+//Compiles JavaDocs to Jar for maven
+task androidJavadocsJar(type: Jar) {
+    classifier = 'javadoc'
+    //basename = artifact_id
+    from androidJavadocs.destinationDir
+}
+
+//Compiles Sources to Jar for maven
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    //basename = artifact_id
+    from android.sourceSets.main.java
+}
+
+// Adds the Source and Javadocs to Maven upload task
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+
+        if(isReleaseBuild()) {
+            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+        }
+        else {
+            snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+        }
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+        pom.groupId = 'com.myriadmobile.library'
+        pom.artifactId = 'hero-viewpager'
+        pom.version = project.version
+
+        pom.project {
+            name 'Hero ViewPager'
+            packaging 'aar'
+            description 'An extensible library for parallax scrolling effects with a ViewPager'
+            url 'https://github.com/myriadmobile/hero-viewpager'
+            //You need to provide this for Central
+            scm {
+                url 'git@github.com:myriadmobile/hero-viewpager.git'
+                connection 'scm:git:git@github.com:myriadmobile/hero-viewpager.git'
+                developerConnection 'scm:git:git@github.com:myriadmobile/hero-viewpager.git'
+            }
+            //You need a license
+            licenses {
+                license {
+                    name 'MIT License'
+                    url 'http://www.opensource.org/licenses/mit-license.php'
+                }
+            }
+            developers {
+                //This developer is needed!
+                developer {
+                    id sonatypeUsername
+                    name sonatypeFullname
+                }
+                //This one is extra
+                developer {
+                    name 'Adam Koski'
+                    email 'akoski@myriadmobile.com'
+                    organization 'Myriad Mobile'
+                    organizationUrl 'http://www.myriadmobile.com'
+                }
+            }
+        }
+    }
+}
