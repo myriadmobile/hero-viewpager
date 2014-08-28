@@ -45,14 +45,14 @@ public class BurnsHeroExampleActivity extends BurnsHeroActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         HeroPagerAdapter adapter = new HeroPagerAdapter(this);
-        adapter.add("Test 1", DummyFragment.class, null);
-        adapter.add("Test 2", DummyFragment.class, null);
-        adapter.add("Test 3", DummyFragment.class, null);
-        adapter.add("Test 4", DummyFragment.class, null);
-        adapter.add("Test 5", DummyFragment.class, null);
-        adapter.add("Test 6", DummyFragment.class, null);
-        adapter.add("Test 7", DummyFragment.class, null);
-        adapter.add("Test 8", DummyFragment.class, null);
+        adapter.add("Test 1", DummyListFragment.class, null);
+        adapter.add("Test 2", DummyListFragment.class, null);
+        adapter.add("Test 3", DummyListFragment.class, null);
+        adapter.add("Test 4", DummyListFragment.class, null);
+        adapter.add("Test 5", DummyListFragment.class, null);
+        adapter.add("Test 6", DummyListFragment.class, null);
+        adapter.add("Test 7", DummyListFragment.class, null);
+        adapter.add("Test 8", DummyListFragment.class, null);
         setAdapter(adapter);
 
         setHeroBackgroundDrawable(getResources().getDrawable(R.drawable.carnarvon_castle));

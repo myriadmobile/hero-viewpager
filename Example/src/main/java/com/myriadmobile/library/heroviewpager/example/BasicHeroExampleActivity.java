@@ -51,14 +51,14 @@ public class BasicHeroExampleActivity extends HeroViewPagerActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         HeroPagerAdapter adapter = new HeroPagerAdapter(this);
-        adapter.add("Test 1", DummyFragment.class, null);
-        adapter.add("Test 2", DummyFragment.class, null);
-        adapter.add("Test 3", DummyFragment.class, null);
-        adapter.add("Test 4", DummyFragment.class, null);
-        adapter.add("Test 5", DummyFragment.class, null);
-        adapter.add("Test 6", DummyFragment.class, null);
-        adapter.add("Test 7", DummyFragment.class, null);
-        adapter.add("Test 8", DummyFragment.class, null);
+        adapter.add("Dummy 1", DummyListFragment.class, null);
+        adapter.add("Dummy 2", DummyListFragment.class, null);
+        adapter.add("Dummy 3", DummyListFragment.class, null);
+        adapter.add("Dummy 4", DummyListFragment.class, null);
+        adapter.add("Scroll 1", DummyScrollFragment.class, null);
+        adapter.add("Scroll 2", DummyScrollFragment.class, null);
+        adapter.add("Scroll 3", DummyScrollFragment.class, null);
+        adapter.add("Scroll 4", DummyScrollFragment.class, null);
         setAdapter(adapter);
     }
 

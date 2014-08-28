@@ -41,7 +41,7 @@ import java.util.concurrent.Executors;
 /**
  *
  */
-public class DummyFragment extends HeroListFragment {
+public class DummyListFragment extends HeroListFragment {
 
     private static final ArrayList<String> ITEMS = new ArrayList<String>();
 
