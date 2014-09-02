@@ -1,4 +1,4 @@
-![Hero](https://github.com/myriadmobile/hero/raw/master/res/hero_banner.png)
+![Hero](https://github.com/myriadmobile/hero-viewpager/raw/master/res/hero_banner.png)
 
 ==============
 
@@ -23,4 +23,4 @@ Usage
 5. Use `getHeroContentContainer()` to fill the Hero header with content
 6. Run and Test!
 
-![Hero](https://github.com/myriadmobile/hero/raw/master/res/hero.png)
+![Hero](https://github.com/myriadmobile/hero-viewpager/raw/master/res/hero.png)
