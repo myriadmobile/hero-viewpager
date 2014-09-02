@@ -1,4 +1,5 @@
-Hero ViewPager
+![Hero](https://github.com/myriadmobile/hero/raw/master/res/hero_banner.png)
+
 ==============
 
 An extensible library for parallax scrolling effects with a ViewPager
@@ -21,3 +22,5 @@ Usage
 4. Supply a `HeroPagerAdapter` to `setAdapter()`
 5. Use `getHeroContentContainer()` to fill the Hero header with content
 6. Run and Test!
+
+![Hero](https://github.com/myriadmobile/hero/raw/master/res/hero.png)
