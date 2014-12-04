@@ -24,40 +24,6 @@
 
 <resources>
 
-    <style name="Theme.HeroViewPager" parent="android:Theme.Holo">
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowActionModeOverlay">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:actionBarStyle">@style/TransparentActionBar</item>
-    </style>
-
-    <style name="Theme.HeroViewPager.Light" parent="android:Theme.Holo.Light">
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowActionModeOverlay">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:actionBarStyle">@style/TransparentActionBar.Light</item>
-    </style>
-
-    <style name="Theme.HeroViewPager.Light.DarkActionBar" parent="android:Theme.Holo.Light.DarkActionBar">
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowActionModeOverlay">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:actionBarStyle">@style/TransparentActionBar.Light.Inverse</item>
-    </style>
-
-
-    <style name="TransparentActionBar" parent="android:Widget.Holo.ActionBar.Solid">
-        <item name="android:background">@android:color/transparent</item>
-    </style>
-
-    <style name="TransparentActionBar.Light" parent="android:Widget.Holo.Light.ActionBar.Solid">
-        <item name="android:background">@android:color/transparent</item>
-    </style>
-
-    <style name="TransparentActionBar.Light.Inverse" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@android:color/transparent</item>
-    </style>
-
     <style name="Widget.Holo.TabText" parent="android:Widget.Holo.TabWidget">
 
     </style>

@@ -48,7 +48,7 @@ public class BasicHeroExampleActivity extends HeroViewPagerActivity {
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         setContentView(imageView);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         HeroPagerAdapter adapter = new HeroPagerAdapter(this);
         adapter.add("Dummy 1", DummyListFragment.class, null);

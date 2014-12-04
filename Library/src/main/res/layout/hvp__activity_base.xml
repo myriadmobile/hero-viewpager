@@ -75,6 +75,14 @@
     <FrameLayout
         android:id="@+id/hero_overlay"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/hvp__hero_height" />
+        android:layout_height="@dimen/hvp__hero_height" >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/hvp__toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            />
+
+    </FrameLayout>
 
 </FrameLayout>

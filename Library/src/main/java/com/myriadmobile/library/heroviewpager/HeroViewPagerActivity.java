@@ -27,8 +27,9 @@ package com.myriadmobile.library.heroviewpager;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,7 @@ import java.util.List;
  *     {@link android.R.attr#actionBarTabTextStyle}
  * </p>
  */
-public abstract class HeroViewPagerActivity extends FragmentActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
+public abstract class HeroViewPagerActivity extends ActionBarActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 
     private FrameLayout mHeroContent;
     private FrameLayout mHeroContainer;
@@ -68,6 +69,9 @@ public abstract class HeroViewPagerActivity extends FragmentActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.hvp__activity_base);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.hvp__toolbar);
+        setSupportActionBar(toolbar);
 
         // Calculate ActionBar height
         TypedValue typedValue = new TypedValue();

@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +36,7 @@ import android.view.View;
 /**
  *
  */
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
 
     public static final String GITHUB_URL = "https://github.com/myriadmobile/hero-viewpager";
 
@@ -54,7 +55,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.button_example_burns).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), BurnsHeroExampleActivity.class));
+                //startActivity(new Intent(view.getContext(), BurnsHeroExampleActivity.class));
             }
         });
     }
