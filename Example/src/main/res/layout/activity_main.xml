@@ -39,8 +39,8 @@
         />
 
     <Button
-        android:id="@+id/button_example_burns"
-        android:text="@string/title_burns_example"
+        android:id="@+id/button_example_parallax"
+        android:text="@string/title_parallax_example"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />

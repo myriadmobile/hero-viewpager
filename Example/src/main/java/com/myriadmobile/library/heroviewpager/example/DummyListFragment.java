@@ -54,7 +54,7 @@ public class DummyListFragment extends HeroListFragment {
     public void onResume() {
         super.onResume();
 
-        setListShown(false);
+        setShowProgress(true);
         new AsyncTask<Void, Void, List<String>>() {
             @Override
             protected List<String> doInBackground(Void... voids) {
@@ -72,7 +72,7 @@ public class DummyListFragment extends HeroListFragment {
                     return;
                 }
 
-                setListShown(true);
+                setShowProgress(false);
                 setListAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, strings));
             }
         }.executeOnExecutor(executor);

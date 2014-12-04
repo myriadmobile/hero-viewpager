@@ -41,7 +41,7 @@ import android.widget.FrameLayout;
 public class HeroRecyclerListFragment extends AbstractHeroFragment {
 
     private RecyclerView list;
-    private View progress;
+    private FrameLayout progress;
     private FrameLayout empty;
     private int mHeroHeight;
     private LinearLayoutManager layoutManager;
@@ -53,7 +53,7 @@ public class HeroRecyclerListFragment extends AbstractHeroFragment {
         mHeroHeight = getHeroContainer().getHeroHeight();
 
         list = (RecyclerView) re.findViewById(android.R.id.list);
-        progress = re.findViewById(android.R.id.progress);
+        progress = (FrameLayout) re.findViewById(android.R.id.progress);
         empty = (FrameLayout) re.findViewById(android.R.id.empty);
 
         empty.setPadding(0, mHeroHeight, 0, 0);
@@ -98,12 +98,12 @@ public class HeroRecyclerListFragment extends AbstractHeroFragment {
         checkAdapterIsEmpty();
     }
 
-    public void setListHiddenView(View view) {
-        setListHiddenView(view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+    public void setEmptyView(View view) {
+        setEmptyView(view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
-    public void setListHiddenView(View view, FrameLayout.LayoutParams params) {
+    public void setEmptyView(View view, FrameLayout.LayoutParams params) {
         if(empty == null) {
             return;
         }

@@ -16,9 +16,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BasicHeroExampleActivity"
+            android:name=".BasicHeroActivity"
             android:theme="@style/AppTheme.Hero"
             android:label="@string/title_basic_example">
+        </activity>
+        <activity
+            android:name=".ParallaxHeroActivity"
+            android:theme="@style/AppTheme.Hero"
+            android:label="@string/title_parallax_example">
         </activity>
     </application>
 

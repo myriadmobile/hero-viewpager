@@ -37,13 +37,15 @@ import com.myriadmobile.library.heroviewpager.HeroViewPagerActivity;
 /**
  *
  */
-public class BasicHeroExampleActivity extends HeroViewPagerActivity {
+public class ParallaxHeroActivity extends HeroViewPagerActivity {
+
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ImageView imageView = new ImageView(this);
+        imageView = new ImageView(this);
         imageView.setImageResource(R.drawable.carnarvon_castle);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         setUnderlayView(imageView);
@@ -60,6 +62,13 @@ public class BasicHeroExampleActivity extends HeroViewPagerActivity {
         adapter.add("Scroll 3", DummyScrollFragment.class, null);
         adapter.add("Scroll 4", DummyScrollFragment.class, null);
         setAdapter(adapter);
+    }
+
+    @Override
+    public void onHeroScrollUpdated(int scroll, int max) {
+        super.onHeroScrollUpdated(scroll, max);
+
+        imageView.setTranslationY(scroll / 2);
     }
 
     @Override

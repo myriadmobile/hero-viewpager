@@ -46,7 +46,15 @@
             android:id="@+id/hvp__hero_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            >
+
+            <View
+                android:background="?attr/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </FrameLayout>
 
         <TabHost
             android:layout_gravity="bottom"

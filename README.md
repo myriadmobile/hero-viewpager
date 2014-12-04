@@ -1,8 +1,12 @@
 ![Hero](https://github.com/myriadmobile/hero-viewpager/raw/master/res/hero_banner.png)
 
-Introdution
+Introduction
 -------
-An extensible library for parallax scrolling effects with a ViewPager
+An extensible library for parallax scrolling effects with a ViewPager.
+
+**Now with Material Design support!**
+
+With version 0.10.0, this library now requires the use of AppCompat and, by default, acts as an extended Toolbar.
 
 Features
 -------
@@ -11,9 +15,9 @@ Usage
 -----
 1. Import the library into your App
 2. Create an Activity subclassing `HeroViewPagerActivity`
-3. Make sure the Activity is using  `Theme.HeroViewPager` or a variant of it.
+3. Make sure the Activity is using  `Theme.AppCompat.Light.NoActionBar` or a variant of it.
 4. Supply a `HeroPagerAdapter` to `setAdapter()`
-5. Use `getHeroContentContainer()` to fill the Hero header with content
+5. Use `setOverlayView()` or `setUnderlayView()` to fill the Hero header with content
 6. Run and Test!
 
 Documentation
