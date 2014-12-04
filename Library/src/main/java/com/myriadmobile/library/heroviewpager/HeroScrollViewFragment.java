@@ -56,6 +56,7 @@ public abstract class HeroScrollViewFragment extends AbstractHeroFragment {
         mScrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                //noinspection deprecation
                 mScrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 scrollTo(getInitialScroll());
             }

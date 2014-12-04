@@ -20,11 +20,6 @@
             android:theme="@style/AppTheme.Hero"
             android:label="@string/title_basic_example">
         </activity>
-        <activity
-            android:name=".BurnsHeroExampleActivity"
-            android:theme="@style/AppTheme.Hero"
-            android:label="@string/title_burns_example">
-        </activity>
     </application>
 
 </manifest>

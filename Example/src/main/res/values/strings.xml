@@ -6,5 +6,6 @@
     <string name="title_basic_example">Basic Hero Example</string>
     <string name="title_burns_example">Burns Hero Example</string>
     <string name="action_view_github">View on Github</string>
+    <string name="dummy_button_text">This is a button!</string>
 
 </resources>

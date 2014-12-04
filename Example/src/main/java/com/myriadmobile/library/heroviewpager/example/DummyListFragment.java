@@ -26,9 +26,6 @@
 package com.myriadmobile.library.heroviewpager.example;
 
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.myriadmobile.library.heroviewpager.HeroListFragment;
@@ -43,7 +40,7 @@ import java.util.concurrent.Executors;
  */
 public class DummyListFragment extends HeroListFragment {
 
-    private static final ArrayList<String> ITEMS = new ArrayList<String>();
+    private static final ArrayList<String> ITEMS = new ArrayList<>();
 
     static {
         for(int i = 0; i < 30; i++) {
@@ -51,12 +48,7 @@ public class DummyListFragment extends HeroListFragment {
         }
     }
 
-    private Executor executor = Executors.newFixedThreadPool(4);
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
+    private final Executor executor = Executors.newFixedThreadPool(4);
 
     @Override
     public void onResume() {
@@ -81,7 +73,7 @@ public class DummyListFragment extends HeroListFragment {
                 }
 
                 setListShown(true);
-                setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, strings));
+                setListAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, strings));
             }
         }.executeOnExecutor(executor);
     }

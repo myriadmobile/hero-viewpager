@@ -35,7 +35,7 @@ import java.util.ArrayList;
  */
 public class HeroPagerAdapter extends FragmentPagerAdapter {
 
-    private final ArrayList<FragmentInfo> items = new ArrayList<FragmentInfo>();
+    private final ArrayList<FragmentInfo> items = new ArrayList<>();
     private final HeroViewPagerActivity context;
     private int currentScrollPosition = 0;
 
