@@ -6,9 +6,11 @@
     </style>
 
     <!-- Base activity theme needs to implement Theme.HeroViewPager or sub-styles -->
-    <style name="AppTheme.Hero" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Hero" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">#1e8d95</item>
         <item name="colorPrimaryDark">#1e8d95</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
 </resources>

@@ -291,7 +291,7 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
     private void onFragmentSetChanged() {
         mTabHost.clearAllTabs();
         long now = System.currentTimeMillis();
-        LayoutInflater inflater = LayoutInflater.from(this);
+        LayoutInflater inflater = getLayoutInflater();
         for(int i = 0; i < mPagerAdapter.getCount(); i++) {
             TabHost.TabSpec spec = mTabHost.newTabSpec(now + "_tab_" + i);
             spec.setIndicator(makeIndicator(inflater, i));

@@ -32,4 +32,8 @@
 
     </style>
 
+    <style name="TabTheme" parent="Base.Widget.AppCompat.ActionBar.TabView">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>
