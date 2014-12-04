@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="hvp__hero_height">240dp</dimen>
-    <dimen name="hvp__2x_actionbar_height">96dp</dimen>
+
 </resources>

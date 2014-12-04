@@ -24,7 +24,6 @@
 
 package com.myriadmobile.library.heroviewpager;
 
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,18 +31,22 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 /**
- * <p>Base Fragment used in {@link HeroViewPagerActivity}</p>
- * <p>If you're implementing a ListView fragment, use {@link HeroListFragment}</p>
+ * <p>Base Fragment used in {@link HvpHelper}</p>
+ * <p>If you're implementing a ListView fragment, use {@link com.myriadmobile.library.heroviewpager.HeroListFragment}</p>
  */
-abstract class AbstractHeroFragment extends Fragment {
+public abstract class AbstractHeroFragment extends Fragment implements IHeroFragment {
 
-    public static final String ARG_START_SCROLL_POSITION = "com.myriadmobile.library.heroviewpager.arg.START_SCROLL_POSITION";
+    private IHeroContainer helper;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        if(!(activity instanceof HeroViewPagerActivity)) {
+        if(activity instanceof IHeroContainer) {
+            helper = (IHeroContainer) activity;
+        } else if(getParentFragment() instanceof IHeroContainer) {
+            helper = (IHeroContainer) getParentFragment();
+        } else {
             throw new IllegalArgumentException("Parent activity must extend HeroViewPagerActivity");
         }
 
@@ -59,21 +62,26 @@ abstract class AbstractHeroFragment extends Fragment {
         scrollTo(getInitialScroll());
     }
 
-    protected int getInitialScroll() {
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        helper = null;
+    }
+
+    @Override
+    public int getInitialScroll() {
         return getArguments().getInt(ARG_START_SCROLL_POSITION, 0);
     }
 
-    public HeroViewPagerActivity getHeroActivity() {
-        return (HeroViewPagerActivity) getActivity();
+    @Override
+    public IHeroContainer getHeroContainer() {
+        return helper;
     }
-
-    public abstract int getScroll();
 
     public final void reportScroll(int scroll) {
         if(isAdded()) {
-            getHeroActivity().reportScroll(this, scroll);
+            getHeroContainer().reportScroll(this, scroll);
         }
     }
-
-    public abstract void scrollTo(int scroll);
 }

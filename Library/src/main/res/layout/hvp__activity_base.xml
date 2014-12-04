@@ -39,7 +39,7 @@
     <FrameLayout
         android:id="@+id/hvp__hero_frame"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/hvp__hero_height"
+        android:layout_height="201dp"
         >
 
         <FrameLayout
@@ -63,7 +63,6 @@
                 >
 
                 <TabWidget
-                    style="?attr/actionBarTabBarStyle"
                     android:id="@android:id/tabs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -93,9 +92,7 @@
     <FrameLayout
         android:id="@+id/hero_overlay"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/hvp__hero_height"
-        >
-
-    </FrameLayout>
+        android:layout_height="201dp"
+        />
 
 </FrameLayout>

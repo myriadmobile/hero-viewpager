@@ -36,7 +36,6 @@
         />
 
     <FrameLayout
-        android:layout_marginTop="@dimen/hvp__hero_height"
         android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

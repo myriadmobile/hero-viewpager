@@ -48,15 +48,16 @@ public class HeroListFragment extends AbstractHeroFragment {
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View re = inflater.inflate(R.layout.hvp__fragment_list, container, false);
-        mHeroHeight = getResources().getDimensionPixelSize(R.dimen.hvp__hero_height);
+        mHeroHeight = getHeroContainer().getHeroHeight();
 
         list = (ListView) re.findViewById(android.R.id.list);
         empty = (FrameLayout) re.findViewById(android.R.id.empty);
 
+        empty.setPadding(0, mHeroHeight, 0, 0);
+
         View header = new View(re.getContext());
         header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mHeroHeight));
         list.addHeaderView(header, null, false);
-
 
         list.setSelectionAfterHeaderView();
         list.setOnScrollListener(mScrollListener);

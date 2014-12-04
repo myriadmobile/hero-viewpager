@@ -46,7 +46,7 @@ public class BasicHeroExampleActivity extends HeroViewPagerActivity {
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(R.drawable.carnarvon_castle);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        setContentView(imageView);
+        setUnderlayView(imageView);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

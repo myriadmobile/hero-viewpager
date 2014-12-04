@@ -48,10 +48,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * <p>Custom implementation of {@link PagerAdapter} mostly borrowed from {@link android.support.v4.app.FragmentPagerAdapter}</p>
+ * <p>Custom implementation of {@link android.support.v4.view.PagerAdapter} mostly borrowed from
+ * {@link android.support.v4.app.FragmentPagerAdapter}</p>
  * <p>
- *     This only adds and removes fragments. It doesn't detach and re-attach them.
- *     This is done so that new argument Bundles can be set each time the fragment is added.
+ * This only adds and removes fragments. It doesn't detach and re-attach them.
+ * This is done so that new argument Bundles can be set each time the fragment is added.
  * </p>
  */
 public abstract class FragmentPagerAdapter extends PagerAdapter {
@@ -75,7 +76,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        if (mCurTransaction == null) {
+        if(mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
 
@@ -85,7 +86,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
         mCurTransaction.add(container.getId(), fragment, makeFragmentName(container.getId(), itemId));
 
-        if (fragment != mCurrentPrimaryItem) {
+        if(fragment != mCurrentPrimaryItem) {
             fragment.setMenuVisibility(false);
             fragment.setUserVisibleHint(false);
         }
@@ -95,7 +96,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        if (mCurTransaction == null) {
+        if(mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
         Fragment fragment = (Fragment) object;
@@ -104,13 +105,13 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
-        Fragment fragment = (Fragment)object;
-        if (fragment != mCurrentPrimaryItem) {
-            if (mCurrentPrimaryItem != null) {
+        Fragment fragment = (Fragment) object;
+        if(fragment != mCurrentPrimaryItem) {
+            if(mCurrentPrimaryItem != null) {
                 mCurrentPrimaryItem.setMenuVisibility(false);
                 mCurrentPrimaryItem.setUserVisibleHint(false);
             }
-            if (fragment != null) {
+            if(fragment != null) {
                 fragment.setMenuVisibility(true);
                 fragment.setUserVisibleHint(true);
             }
@@ -120,7 +121,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
     @Override
     public void finishUpdate(ViewGroup container) {
-        if (mCurTransaction != null) {
+        if(mCurTransaction != null) {
             mCurTransaction.commitAllowingStateLoss();
             mCurTransaction = null;
             mFragmentManager.executePendingTransactions();
@@ -129,7 +130,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return ((Fragment)object).getView() == view;
+        return ((Fragment) object).getView() == view;
     }
 
     @Override
@@ -143,7 +144,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
     /**
      * Return a unique identifier for the item at the given position.
-     *
+     * <p/>
      * <p>The default implementation returns the given position.
      * Subclasses should override this method if the positions of items can change.</p>
      *
