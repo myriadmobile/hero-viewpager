@@ -43,7 +43,7 @@
         >
 
         <FrameLayout
-            android:id="@+id/hero_content"
+            android:id="@+id/hvp__hero_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
@@ -90,7 +90,7 @@
         />
 
     <FrameLayout
-        android:id="@+id/hero_overlay"
+        android:id="@+id/hvp__hero_overlay"
         android:layout_width="match_parent"
         android:layout_height="201dp"
         />

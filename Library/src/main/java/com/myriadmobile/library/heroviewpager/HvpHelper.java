@@ -27,14 +27,13 @@ package com.myriadmobile.library.heroviewpager;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
+import android.widget.Space;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -63,26 +62,24 @@ public class HvpHelper implements TabHost.OnTabChangeListener, ViewPager.OnPageC
     private TabHost mTabHost;
     private HorizontalScrollView mTabScrollView;
 
-    private int actionBarHeight = 0;
     private FrameLayout mHeroOverlay;
 
-    public HvpHelper(FragmentActivity context) {
-        mIHeroContainer = (IHeroContainer) context;
+    public HvpHelper(IHeroContainer context) {
+        mIHeroContainer = context;
     }
 
+    /**
+     * This method expects some views to be present when calling
+     * {@linkplain com.myriadmobile.library.heroviewpager.IHeroContainer#findViewById(int)}.
+     * Call from {@linkplain android.app.Activity#onCreate(android.os.Bundle)} or
+     * {@linkplain android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)}
+     *
+     * @param savedInstanceState bundle
+     */
     public void onCreate(Bundle savedInstanceState) {
 
-        // Calculate ActionBar height
-        TypedValue typedValue = new TypedValue();
-        if(mIHeroContainer.getContext()
-                .getTheme()
-                .resolveAttribute(R.attr.actionBarSize, typedValue, true)) {
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data,
-                    mIHeroContainer.getContext().getResources().getDisplayMetrics());
-        }
-
-        mHeroContent = (FrameLayout) mIHeroContainer.findViewById(R.id.hero_content);
-        mHeroOverlay = (FrameLayout) mIHeroContainer.findViewById(R.id.hero_overlay);
+        mHeroContent = (FrameLayout) mIHeroContainer.findViewById(R.id.hvp__hero_content);
+        mHeroOverlay = (FrameLayout) mIHeroContainer.findViewById(R.id.hvp__hero_overlay);
         mHeroContainer = (FrameLayout) mIHeroContainer.findViewById(R.id.hvp__hero_frame);
 
 
@@ -142,7 +139,7 @@ public class HvpHelper implements TabHost.OnTabChangeListener, ViewPager.OnPageC
         }
 
         //Change the position of the Hero header
-        int height = mHeroContainer.getHeight() - actionBarHeight - mTabHost.getHeight();
+        int height = mHeroContainer.getHeight() - mIHeroContainer.getToolbarHeight() - mTabHost.getHeight();
         int clampedScroll = Math.max(0, Math.min(height, scroll));
         mHeroContainer.setTranslationY(-clampedScroll);
 
@@ -339,7 +336,7 @@ public class HvpHelper implements TabHost.OnTabChangeListener, ViewPager.OnPageC
     private final TabHost.TabContentFactory mTabFactory = new TabHost.TabContentFactory() {
         @Override
         public View createTabContent(String s) {
-            return new View(mIHeroContainer.getContext());
+            return new Space(mIHeroContainer.getContext());
         }
     };
 
@@ -365,6 +362,12 @@ public class HvpHelper implements TabHost.OnTabChangeListener, ViewPager.OnPageC
     public void onPageScrollStateChanged(int i) {
     }
 
+    /**
+     * Set the current page of the ViewPager
+     *
+     * @param page new page
+     * @see android.support.v4.view.ViewPager#setCurrentItem(int)
+     */
     public void setPage(int page) {
         mPager.setCurrentItem(page);
     }

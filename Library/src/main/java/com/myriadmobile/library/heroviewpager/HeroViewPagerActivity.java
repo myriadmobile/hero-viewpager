@@ -37,16 +37,11 @@ import android.view.ViewGroup;
  * <p>
  * Base Activity that has everything you need to have a parallax Hero header with tabs and a ViewPager
  * </p>
- * <p>
- * Default tabs are themed using ActionBar tab styles defined by
- * {@link android.R.attr#actionBarTabStyle}
- * and
- * {@link android.R.attr#actionBarTabTextStyle}
- * </p>
  */
 public abstract class HeroViewPagerActivity extends ActionBarActivity implements IHeroContainer {
 
     private HvpHelper hvpHelper;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +50,7 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
         hvpHelper = new HvpHelper(this);
         hvpHelper.onCreate(savedInstanceState);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.hvp__toolbar);
+        toolbar = (Toolbar) findViewById(R.id.hvp__toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -118,6 +113,11 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
     @Override
     public int getHeroHeight() {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 260, getResources().getDisplayMetrics());
+    }
+
+    @Override
+    public int getToolbarHeight() {
+        return toolbar.getHeight();
     }
 
     @Override
