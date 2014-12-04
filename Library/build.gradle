@@ -38,6 +38,6 @@ task androidJar(type: Jar) {
 }
 
 // central upload
-if(gradle.startParameter.taskNames.contains('uploadArchives')) {
+if (gradle.startParameter.taskNames.contains('uploadArchives')) {
     apply from: 'build.publish.gradle'
 }

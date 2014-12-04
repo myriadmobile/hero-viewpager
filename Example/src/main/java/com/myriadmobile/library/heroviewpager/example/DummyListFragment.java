@@ -46,8 +46,8 @@ public class DummyListFragment extends HeroListFragment {
     private static final ArrayList<String> ITEMS = new ArrayList<String>();
 
     static {
-        for (int i = 0; i < 30; i++) {
-            ITEMS.add("ITEM " + (i+1));
+        for(int i = 0; i < 30; i++) {
+            ITEMS.add("ITEM " + (i + 1));
         }
     }
 
@@ -68,7 +68,7 @@ public class DummyListFragment extends HeroListFragment {
             protected List<String> doInBackground(Void... voids) {
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
+                } catch(InterruptedException e) {
                     e.printStackTrace();
                 }
                 return ITEMS;

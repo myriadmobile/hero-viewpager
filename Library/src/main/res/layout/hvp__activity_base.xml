@@ -25,48 +25,56 @@
   -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+    >
 
     <android.support.v4.view.ViewPager
         android:id="@+id/hvp__pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
     <FrameLayout
         android:id="@+id/hvp__hero_frame"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/hvp__hero_height">
+        android:layout_height="@dimen/hvp__hero_height"
+        >
 
         <FrameLayout
             android:id="@+id/hero_content"
             android:background="#ff80fff4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            />
 
         <TabHost
             android:layout_gravity="bottom"
             android:id="@+id/hvp__hero_tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <HorizontalScrollView
                 android:scrollbars="none"
                 android:id="@+id/hvp__tab_scroll_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <TabWidget
                     android:id="@android:id/tabs"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    />
 
-                </HorizontalScrollView>
+            </HorizontalScrollView>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="0dp"
-                android:layout_height="0dp" />
+                android:layout_height="0dp"
+                />
 
         </TabHost>
 
@@ -75,7 +83,8 @@
     <FrameLayout
         android:id="@+id/hero_overlay"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/hvp__hero_height" >
+        android:layout_height="@dimen/hvp__hero_height"
+        >
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/hvp__toolbar"

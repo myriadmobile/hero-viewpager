@@ -43,13 +43,13 @@ import java.util.List;
 
 /**
  * <p>
- *     Base Activity that has everything you need to have a parallax Hero header with tabs and a ViewPager
+ * Base Activity that has everything you need to have a parallax Hero header with tabs and a ViewPager
  * </p>
  * <p>
- *     Default tabs are themed using ActionBar tab styles defined by
- *     {@link android.R.attr#actionBarTabStyle}
- *     and
- *     {@link android.R.attr#actionBarTabTextStyle}
+ * Default tabs are themed using ActionBar tab styles defined by
+ * {@link android.R.attr#actionBarTabStyle}
+ * and
+ * {@link android.R.attr#actionBarTabTextStyle}
  * </p>
  */
 public abstract class HeroViewPagerActivity extends ActionBarActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
@@ -75,7 +75,7 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
 
         // Calculate ActionBar height
         TypedValue typedValue = new TypedValue();
-        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, typedValue, true)) {
+        if(getTheme().resolveAttribute(android.R.attr.actionBarSize, typedValue, true)) {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data, getResources().getDisplayMetrics());
         }
 
@@ -98,6 +98,7 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
 
     /**
      * Set the PagerAdapter for our ViewPager
+     *
      * @param adapter The HeroPagerAdapter
      */
     public final void setAdapter(HeroPagerAdapter adapter) {
@@ -122,7 +123,7 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
             //We only care about the _currently_ shown fragment. Later in the method, we may
             // cause other fragments to report scrolling
             Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(FragmentPagerAdapter.makeFragmentName(R.id.hvp__pager, mPager.getCurrentItem()));
-            if (caller != currentFragment) {
+            if(caller != currentFragment) {
                 return;
             }
 
@@ -133,14 +134,14 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
 
             //Report the scroll position to the PageAdapter so that it can
             // appropriately instantiate other fragments at this scroll position
-            if (mPagerAdapter != null) {
+            if(mPagerAdapter != null) {
                 mPagerAdapter.setCurrentScrollPosition(clampedScroll);
             }
 
             //Scroll other fragments already added to also scroll to the new position
             List<Fragment> fragments = getSupportFragmentManager().getFragments();
-            for (Fragment fragment : fragments) {
-                if (fragment != null && fragment != caller && fragment.isAdded() && fragment instanceof AbstractHeroFragment) {
+            for(Fragment fragment : fragments) {
+                if(fragment != null && fragment != caller && fragment.isAdded() && fragment instanceof AbstractHeroFragment) {
                     AbstractHeroFragment heroFragment = (AbstractHeroFragment) fragment;
                     //Here is where we can cause recursion!
                     //The HeroListView implementation will report scrolling
@@ -150,8 +151,7 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
 
             //Tell implementers that the scroll position changed
             onHeroScrollUpdated(clampedScroll, height);
-        }
-        else {
+        } else {
             //TODO Should do nothing?
         }
     }
@@ -188,7 +188,7 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
      * Set the content from an explicit view. Content will be added to a
      * container in the Hero header that sits behind the ActionBar and Tabs.
      *
-     * @param view The desired content to display.
+     * @param view   The desired content to display.
      * @param params Layout parameters for the view.
      */
     @Override
@@ -212,6 +212,7 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
         return mHeroOverlay != null &&
                 setOverlayView(getLayoutInflater().inflate(layoutResID, mHeroOverlay, false));
     }
+
     /**
      * Convenience for
      * {@link #setOverlayView(View, android.view.ViewGroup.LayoutParams)}
@@ -230,7 +231,7 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
      * Set the overlay content to an explicit view.  This view is placed into
      * a container the same height as the Hero header.
      *
-     * @param view The desired content to display.
+     * @param view   The desired content to display.
      * @param params Layout parameters for the view.
      * @return true if there was a overlay container to add to, false if not added
      */
@@ -245,6 +246,7 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
 
     /**
      * Current Implementation: hero overlay are only available in portrait.
+     *
      * @return if the Activity has a container for overlay content
      */
     public boolean hasHeroOverlay() {
@@ -256,7 +258,7 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
      * <p>This may never get called, or could be called multiple times with the same scroll value.</p>
      *
      * @param scroll The amount that the header has been offset by
-     * @param max The max distance the header will be offset by
+     * @param max    The max distance the header will be offset by
      */
     public void onHeroScrollUpdated(int scroll, int max) {
         //For people to implement
@@ -264,15 +266,16 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
 
     /**
      * <p>
-     *     Construct the Tab view for the TabWidget. This should be fully populated with content
-     *</p>
-     * <p>
-     *     By default, this method will construct tabs that are themed like ActionBar tabs,
-     *     with the text set to the String returned by
-     *     {@link com.myriadmobile.library.heroviewpager.HeroPagerAdapter#getPageTitle(int)}.
+     * Construct the Tab view for the TabWidget. This should be fully populated with content
      * </p>
+     * <p>
+     * By default, this method will construct tabs that are themed like ActionBar tabs,
+     * with the text set to the String returned by
+     * {@link com.myriadmobile.library.heroviewpager.HeroPagerAdapter#getPageTitle(int)}.
+     * </p>
+     *
      * @param inflater View inflater to use
-     * @param index The index of the tab
+     * @param index    The index of the tab
      * @return A View to use as a tab, fully populated with content
      */
     public View makeIndicator(LayoutInflater inflater, int index) {
@@ -289,7 +292,7 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
         mTabHost.clearAllTabs();
         long now = System.currentTimeMillis();
         LayoutInflater inflater = LayoutInflater.from(this);
-        for (int i = 0; i < mPagerAdapter.getCount(); i++) {
+        for(int i = 0; i < mPagerAdapter.getCount(); i++) {
             TabHost.TabSpec spec = mTabHost.newTabSpec(now + "_tab_" + i);
             spec.setIndicator(makeIndicator(inflater, i));
             spec.setContent(mTabFactory);
@@ -337,7 +340,12 @@ public abstract class HeroViewPagerActivity extends ActionBarActivity implements
         mTabHost.setCurrentTab(i);
     }
 
-    @Override public void onPageScrolled(int i, float v, int i2) {}
-    @Override public void onPageScrollStateChanged(int i) {}
+    @Override
+    public void onPageScrolled(int i, float v, int i2) {
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+    }
 
 }

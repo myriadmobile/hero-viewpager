@@ -125,7 +125,7 @@ public class HeroListFragment extends AbstractHeroFragment {
         }
         int scrollY = -c.getTop();
         listViewItemHeights.put(list.getFirstVisiblePosition(), c.getHeight());
-        for (int i = 0; i < list.getFirstVisiblePosition(); ++i) {
+        for(int i = 0; i < list.getFirstVisiblePosition(); ++i) {
             scrollY += listViewItemHeights.get(i, 0);
         }
         return scrollY;

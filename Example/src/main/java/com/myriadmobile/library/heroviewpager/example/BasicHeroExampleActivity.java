@@ -71,11 +71,11 @@ public class BasicHeroExampleActivity extends HeroViewPagerActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == android.R.id.home) {
+        if(id == android.R.id.home) {
             finish();
             return true;
         }
-        if (id == R.id.action_view_github) {
+        if(id == R.id.action_view_github) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MainActivity.GITHUB_URL));
             if(intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);

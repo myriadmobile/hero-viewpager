@@ -43,11 +43,11 @@ abstract class AbstractHeroFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        if (!(activity instanceof HeroViewPagerActivity)) {
+        if(!(activity instanceof HeroViewPagerActivity)) {
             throw new IllegalArgumentException("Parent activity must extend HeroViewPagerActivity");
         }
 
-        if (getArguments() == null) {
+        if(getArguments() == null) {
             throw new IllegalArgumentException("getArguments() should never be null");
         }
     }
@@ -70,7 +70,7 @@ abstract class AbstractHeroFragment extends Fragment {
     public abstract int getScroll();
 
     public final void reportScroll(int scroll) {
-        if (isAdded()) {
+        if(isAdded()) {
             getHeroActivity().reportScroll(this, scroll);
         }
     }

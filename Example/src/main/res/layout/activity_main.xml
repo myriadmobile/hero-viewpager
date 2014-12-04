@@ -25,21 +25,24 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="32dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:orientation="vertical"
+              android:padding="32dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    >
 
     <Button
         android:id="@+id/button_example_basic"
         android:text="@string/title_basic_example"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
 
     <Button
         android:id="@+id/button_example_burns"
         android:text="@string/title_burns_example"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
 
 </LinearLayout>

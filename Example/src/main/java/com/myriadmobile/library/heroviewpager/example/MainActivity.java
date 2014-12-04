@@ -24,7 +24,6 @@
 
 package com.myriadmobile.library.heroviewpager.example;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,6 +31,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  *
@@ -55,6 +55,11 @@ public class MainActivity extends ActionBarActivity {
         findViewById(R.id.button_example_burns).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(
+                        view.getContext(),
+                        "Under Construction. Burns icon isn't Material anymore.",
+                        Toast.LENGTH_SHORT
+                ).show();
                 //startActivity(new Intent(view.getContext(), BurnsHeroExampleActivity.class));
             }
         });
@@ -69,7 +74,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_view_github) {
+        if(id == R.id.action_view_github) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_URL));
             if(intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
