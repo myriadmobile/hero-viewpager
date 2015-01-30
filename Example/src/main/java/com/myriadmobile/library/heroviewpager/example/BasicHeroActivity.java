@@ -27,36 +27,33 @@ package com.myriadmobile.library.heroviewpager.example;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+
+import com.myriadmobile.library.heroviewpager.HeroPagerAdapter;
+import com.myriadmobile.library.heroviewpager.HeroViewPagerActivity;
 
 /**
  *
  */
-public class MainActivity extends ActionBarActivity {
-
-    public static final String GITHUB_URL = "https://github.com/myriadmobile/hero-viewpager";
+public class BasicHeroActivity extends HeroViewPagerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        findViewById(R.id.button_example_basic).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), BasicHeroActivity.class));
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        findViewById(R.id.button_example_parallax).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), ParallaxHeroActivity.class));
-            }
-        });
+        HeroPagerAdapter adapter = new HeroPagerAdapter(this);
+        adapter.add("Dummy 1", DummyListFragment.class, null);
+        adapter.add("Dummy 2", DummyListFragment.class, null);
+        adapter.add("Dummy 3", DummyListFragment.class, null);
+        adapter.add("Dummy 4", DummyListFragment.class, null);
+        adapter.add("Scroll 1", DummyScrollFragment.class, null);
+        adapter.add("Scroll 2", DummyScrollFragment.class, null);
+        adapter.add("Scroll 3", DummyScrollFragment.class, null);
+        adapter.add("Scroll 4", DummyScrollFragment.class, null);
+        setAdapter(adapter);
     }
 
     @Override
@@ -68,8 +65,12 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        if(id == android.R.id.home) {
+            finish();
+            return true;
+        }
         if(id == R.id.action_view_github) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_URL));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MainActivity.GITHUB_URL));
             if(intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
             }

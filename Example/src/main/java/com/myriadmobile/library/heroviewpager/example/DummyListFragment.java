@@ -26,9 +26,6 @@
 package com.myriadmobile.library.heroviewpager.example;
 
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.myriadmobile.library.heroviewpager.HeroListFragment;
@@ -43,32 +40,27 @@ import java.util.concurrent.Executors;
  */
 public class DummyListFragment extends HeroListFragment {
 
-    private static final ArrayList<String> ITEMS = new ArrayList<String>();
+    private static final ArrayList<String> ITEMS = new ArrayList<>();
 
     static {
-        for (int i = 0; i < 30; i++) {
-            ITEMS.add("ITEM " + (i+1));
+        for(int i = 0; i < 30; i++) {
+            ITEMS.add("ITEM " + (i + 1));
         }
     }
 
-    private Executor executor = Executors.newFixedThreadPool(4);
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
+    private final Executor executor = Executors.newFixedThreadPool(4);
 
     @Override
     public void onResume() {
         super.onResume();
 
-        setListShown(false);
+        setShowProgress(true);
         new AsyncTask<Void, Void, List<String>>() {
             @Override
             protected List<String> doInBackground(Void... voids) {
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
+                } catch(InterruptedException e) {
                     e.printStackTrace();
                 }
                 return ITEMS;
@@ -80,8 +72,8 @@ public class DummyListFragment extends HeroListFragment {
                     return;
                 }
 
-                setListShown(true);
-                setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, strings));
+                setShowProgress(false);
+                setListAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, strings));
             }
         }.executeOnExecutor(executor);
     }

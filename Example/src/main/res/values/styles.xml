@@ -1,24 +1,16 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.Myriad">
-
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#1e8d95</item>
+        <item name="colorPrimaryDark">#1e8d95</item>
     </style>
 
     <!-- Base activity theme needs to implement Theme.HeroViewPager or sub-styles -->
-    <style name="AppTheme.Hero" parent="Theme.HeroViewPager.Light.DarkActionBar">
-        <item name="android:actionBarItemBackground">@drawable/selectable_background_myriad</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu.Myriad</item>
-        <item name="android:dropDownListViewStyle">@style/DropDownListView.Myriad</item>
-        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Myriad</item>
-        <item name="android:actionDropDownStyle">@style/DropDownNav.Myriad</item>
-        <item name="android:actionModeBackground">@drawable/cab_background_top_myriad</item>
-        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_myriad</item>
-        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Myriad</item>
-        <item name="android:actionBarWidgetTheme">@style/Theme.Myriad.Widget</item>
-
-        <!-- Using ActionBar Style Generator, you just need to keep using the transparent actionbar theme -->
-        <item name="android:actionBarStyle">@style/TransparentActionBar.Light.Inverse</item>
-
+    <style name="AppTheme.Hero" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#1e8d95</item>
+        <item name="colorPrimaryDark">#1e8d95</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
 </resources>

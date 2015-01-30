@@ -44,10 +44,10 @@ public class ObservableScrollView extends ScrollView {
         public void run() {
 
             int newPosition = getScrollY();
-            if(initialPosition - newPosition == 0){//has stopped
+            if(initialPosition - newPosition == 0) {//has stopped
                 tryAndReportState(OnScrollListener.SCROLL_STATE_IDLE);
 
-            }else{
+            } else {
                 initialPosition = getScrollY();
                 ObservableScrollView.this.postDelayed(scrollerTask, newCheck);
                 tryAndReportState(OnScrollListener.SCROLL_STATE_FLING);
@@ -78,10 +78,9 @@ public class ObservableScrollView extends ScrollView {
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
+                if(event.getAction() == MotionEvent.ACTION_UP) {
                     startScrollerTask();
-                }
-                else {
+                } else {
                     tryAndReportState(OnScrollListener.SCROLL_STATE_TOUCH_SCROLL);
                 }
                 return false;
@@ -113,7 +112,7 @@ public class ObservableScrollView extends ScrollView {
         }
         currentState = state;
         final OnScrollListener listener = onScrollListener;
-        if(listener != null){
+        if(listener != null) {
             listener.onScrollStateChanged(ObservableScrollView.this, state);
         }
     }

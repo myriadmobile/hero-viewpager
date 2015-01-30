@@ -24,32 +24,38 @@
   ~ THE SOFTWARE.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_height="?android:attr/actionBarSize"
-              android:orientation="horizontal"
-              style="?attr/actionBarTabStyle"
-              android:background="@drawable/abc_tab_indicator_material_white"
-              android:layout_width="wrap_content"
-              tools:ignore="UseCompoundDrawables"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
     >
 
-    <ImageView
-        android:contentDescription="@null"
-        android:id="@android:id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@android:id/list"
+        />
+
+    <FrameLayout
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone"
         />
 
-    <TextView
-        android:id="@android:id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        style="?attr/actionBarTabTextStyle"
-        android:textColor="@android:color/white"
-        />
+    <FrameLayout
+        android:id="@android:id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
 
-</LinearLayout>
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            />
+
+    </FrameLayout>
+
+</FrameLayout>

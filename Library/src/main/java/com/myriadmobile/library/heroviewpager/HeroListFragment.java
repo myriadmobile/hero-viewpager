@@ -43,20 +43,24 @@ public class HeroListFragment extends AbstractHeroFragment {
 
     private ListView list;
     private FrameLayout empty;
+    private FrameLayout progress;
     private int mHeroHeight;
 
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View re = inflater.inflate(R.layout.hvp__fragment_list, container, false);
-        mHeroHeight = getResources().getDimensionPixelSize(R.dimen.hvp__hero_height);
+        mHeroHeight = getHeroContainer().getHeroHeight();
 
         list = (ListView) re.findViewById(android.R.id.list);
         empty = (FrameLayout) re.findViewById(android.R.id.empty);
+        progress = (FrameLayout) re.findViewById(android.R.id.progress);
+
+        empty.setPadding(0, mHeroHeight, 0, 0);
+        progress.setPadding(0, mHeroHeight, 0, 0);
 
         View header = new View(re.getContext());
         header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mHeroHeight));
         list.addHeaderView(header, null, false);
-
 
         list.setSelectionAfterHeaderView();
         list.setOnScrollListener(mScrollListener);
@@ -75,22 +79,21 @@ public class HeroListFragment extends AbstractHeroFragment {
         list.setAdapter(adapter);
         listViewItemHeights.clear();
         list.getAdapter().registerDataSetObserver(mDataSetObserver);
+        checkAdapterIsEmpty();
     }
 
-    public void setListShown(boolean show) {
-        if(empty != null) {
-            empty.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-        if(show) {
+    public void setShowProgress(boolean showProgress) {
+        progress.setVisibility(showProgress ? View.VISIBLE : View.GONE);
+        if(!showProgress) {
             scrollTo(getInitialScroll());
         }
     }
 
-    public void setListHiddenView(View view) {
-        setListHiddenView(view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    public void setEmptyView(View view) {
+        setEmptyView(view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
-    public void setListHiddenView(View view, FrameLayout.LayoutParams params) {
+    public void setEmptyView(View view, FrameLayout.LayoutParams params) {
         if(empty == null) {
             return;
         }
@@ -125,10 +128,19 @@ public class HeroListFragment extends AbstractHeroFragment {
         }
         int scrollY = -c.getTop();
         listViewItemHeights.put(list.getFirstVisiblePosition(), c.getHeight());
-        for (int i = 0; i < list.getFirstVisiblePosition(); ++i) {
+        for(int i = 0; i < list.getFirstVisiblePosition(); ++i) {
             scrollY += listViewItemHeights.get(i, 0);
         }
         return scrollY;
+    }
+
+    private void checkAdapterIsEmpty() {
+        //Check count is 1 because of spacer item
+        boolean isEmpty = (list.getAdapter() == null || list.getAdapter().getCount() <= 1);
+        if(progress.getVisibility() == View.VISIBLE) {
+            isEmpty = false;
+        }
+        empty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
     }
 
     private final DataSetObserver mDataSetObserver = new DataSetObserver() {
@@ -136,12 +148,14 @@ public class HeroListFragment extends AbstractHeroFragment {
         public void onChanged() {
             super.onChanged();
             listViewItemHeights.clear();
+            checkAdapterIsEmpty();
         }
 
         @Override
         public void onInvalidated() {
             super.onInvalidated();
             listViewItemHeights.clear();
+            checkAdapterIsEmpty();
         }
     };
 

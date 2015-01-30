@@ -32,7 +32,8 @@ import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 
 /**
- * Convenient implementation of {@link AbstractHeroFragment} for a ScrollView
+ * Convenient implementation of {@link com.myriadmobile.library.heroviewpager.AbstractHeroFragment}
+ * for a ScrollView
  */
 public abstract class HeroScrollViewFragment extends AbstractHeroFragment {
 
@@ -41,7 +42,7 @@ public abstract class HeroScrollViewFragment extends AbstractHeroFragment {
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View re = inflater.inflate(R.layout.hvp__fragment_scrollview, container, false);
-        int heroHeight = getResources().getDimensionPixelSize(R.dimen.hvp__hero_height);
+        int heroHeight = getHeroContainer().getHeroHeight();
         mScrollView = (ObservableScrollView) re;
         mScrollView.removeAllViews();
         View contents = onCreateScrollViewContent(inflater, mScrollView, savedInstanceState);
@@ -56,6 +57,7 @@ public abstract class HeroScrollViewFragment extends AbstractHeroFragment {
         mScrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                //noinspection deprecation
                 mScrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 scrollTo(getInitialScroll());
             }

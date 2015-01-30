@@ -26,6 +26,7 @@ package com.myriadmobile.library.heroviewpager;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 
 import java.util.ArrayList;
 
@@ -36,10 +37,10 @@ import java.util.ArrayList;
 public class HeroPagerAdapter extends FragmentPagerAdapter {
 
     private final ArrayList<FragmentInfo> items = new ArrayList<FragmentInfo>();
-    private final HeroViewPagerActivity context;
+    private final FragmentActivity context;
     private int currentScrollPosition = 0;
 
-    public HeroPagerAdapter(HeroViewPagerActivity context) {
+    public HeroPagerAdapter(FragmentActivity context) {
         super(context.getSupportFragmentManager());
         this.context = context;
     }
@@ -49,7 +50,7 @@ public class HeroPagerAdapter extends FragmentPagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void add(String title, Class<? extends AbstractHeroFragment> clazz, Bundle args) {
+    public void add(String title, Class<? extends IHeroFragment> clazz, Bundle args) {
         items.add(new FragmentInfo(title, clazz, args));
         notifyDataSetChanged();
     }
@@ -63,7 +64,7 @@ public class HeroPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         FragmentInfo info = items.get(i);
         Bundle args = new Bundle(info.args);
-        args.putInt(AbstractHeroFragment.ARG_START_SCROLL_POSITION, currentScrollPosition);
+        args.putInt(IHeroFragment.ARG_START_SCROLL_POSITION, currentScrollPosition);
         return Fragment.instantiate(context, info.clazz.getName(), args);
     }
 
@@ -78,10 +79,11 @@ public class HeroPagerAdapter extends FragmentPagerAdapter {
 
     private static class FragmentInfo {
         final String title;
-        final Class<? extends AbstractHeroFragment> clazz;
+        final Class<? extends IHeroFragment> clazz;
         final Bundle args;
 
-        private FragmentInfo(String title, Class<? extends AbstractHeroFragment> clazz, Bundle args) {
+        private FragmentInfo(String title, Class<? extends IHeroFragment> clazz,
+                             Bundle args) {
             this.title = title;
             this.clazz = clazz;
             //args shouldn't be null!
